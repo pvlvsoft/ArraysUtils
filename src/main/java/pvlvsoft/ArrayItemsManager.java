@@ -2,6 +2,7 @@ package pvlvsoft;
 
 
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -17,7 +18,8 @@ import java.util.Arrays;
  * <p>Class of {@link ArrayItemsManager} is an abstract representation
  * and implementation of the instances belonging to this class.</p>
  *
- * <p></p>
+ * <p>Instances of this class allows using this array sealer as any
+ * of the {@link List} instance but still using the speed of the array.</p>
  *
  * @author Vojtech Pavlu
  * @version 2020-10-29
@@ -27,7 +29,7 @@ public class ArrayItemsManager<T> {
     /* =========================================================== */
     /* ====== INSTANCE VARIABLES ================================= */
 
-    private T[] array;
+    protected T[] array;
 
 
     /* =========================================================== */
@@ -288,8 +290,10 @@ public class ArrayItemsManager<T> {
     /* =========================================================== */
     /* ====== GETTERS AND SETTERS ================================ */
 
+    public T[] getArray() {
 
-
+        return array;
+    }
 
     /* =========================================================== */
     /* ====== MAIN METHOD ======================================== */

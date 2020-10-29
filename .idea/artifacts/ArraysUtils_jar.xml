@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact name="ArraysUtils:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ArraysUtils_jar</output-path>
+    <root id="root">
+      <element id="archive" name="ArraysUtils.jar">
+        <element id="module-output" name="ArraysUtils" />
+        <element id="module-test-output" name="ArraysUtils" />
+      </element>
+      <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
+      <element id="library" level="project" name="Maven: junit:junit:4.11" />
+    </root>
+  </artifact>
+</component>
