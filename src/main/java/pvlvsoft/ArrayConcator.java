@@ -1,8 +1,6 @@
 package pvlvsoft;
 
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 
 /**
  * <i>AUTHOR OF THIS PROJECT IS NOT RESPONSIBLE FOR ANY DAMAGE TO

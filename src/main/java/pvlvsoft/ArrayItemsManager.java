@@ -1,6 +1,9 @@
 package pvlvsoft;
 
 
+import java.util.Arrays;
+
+
 /**
  * <i>AUTHOR OF THIS PROJECT IS NOT RESPONSIBLE FOR ANY DAMAGE TO
  * THE USER'S DEVICE CAUSED BY USING THIS SOFTWARE, NO DATA LEAKS
@@ -58,6 +61,11 @@ public class ArrayItemsManager<T> {
         this.array = array;
     }
 
+    public ArrayItemsManager(T item) {
+
+        this.array = (T[]) new Object[]{item};
+    }
+
 
     public ArrayItemsManager(T[]... arrays) {
 
@@ -69,7 +77,12 @@ public class ArrayItemsManager<T> {
     /* =========================================================== */
     /* ====== OVERRIDDEN METHODS ================================= */
 
-
+    @Override
+    public String toString() {
+        return "ArrayItemsManager{" +
+                "array=" + Arrays.toString(array) +
+                '}';
+    }
 
 
     /* =========================================================== */
@@ -78,17 +91,25 @@ public class ArrayItemsManager<T> {
 
     public void add(T item) throws IllegalArgumentException {
 
-        this.add(item, array.length);
+        if(this.size() == 0) {
+
+            this.add(item, 0);
+
+        } else {
+
+            this.add(item, array.length);
+        }
     }
 
 
     public void add(T item, int index) throws IllegalArgumentException {
 
-        if(index >= this.array.length) {
+        if(index > this.array.length) {
 
             throw new IllegalArgumentException(
                     String.format(
-                            "The index the instance should have has to be smaller than the array length (%s)!",
+                            "The index (%s) the instance should have has to be smaller than the array length (%s)!",
+                            index,
                             this.array.length)
             );
         }
@@ -104,20 +125,34 @@ public class ArrayItemsManager<T> {
 
         Object[] arr = new Object[array.length + 1];
 
-        for (int i = 0; i < arr.length; i++) {
+        if(index == this.size()) {
 
-            if(i < index) {
+            if (this.size() >= 0) {
 
-                arr[i] = this.array[i];
+                System.arraycopy(this.array, 0, arr, 0, this.size());
             }
-            else if(i > index) {
 
-                arr[i+1] = this.array[i];
-            }
-            else {
+            arr[index] = item;
 
-                arr[i] = item;
+        } else {
+
+            for (int i = 0; i < this.array.length; i++) {
+
+                if (i < index) {
+
+                    arr[i] = this.array[i];
+
+                } else if (i > index) {
+
+                    arr[i + 1] = this.array[i];
+
+                } else {
+
+                    arr[i] = item;
+                }
             }
+
+            arr[this.array.length] = item;
         }
 
         this.array = (T[]) arr;
@@ -164,16 +199,14 @@ public class ArrayItemsManager<T> {
 
         T[] arr = (T[]) new Object[array.length-1];
 
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < index; i++) {
 
-            if(i < index) {
+            arr[i] = this.array[i];
+        }
 
-                arr[i] = this.array[i];
+        for (int i = index + 1; i < this.size(); i++) {
 
-            } else if(i > index) {
-
-                arr[i] = this.array[i+1];
-            }
+            arr[i-1] = this.array[i];
         }
 
         this.array = arr;
@@ -194,6 +227,55 @@ public class ArrayItemsManager<T> {
     public T get(int index) {
 
         return this.array[index];
+    }
+
+
+    public void trim() {
+
+        boolean done = false;
+
+        while(!done) {
+
+            done = true;
+
+            for (int i = 0; i < this.size(); i++) {
+
+                if (this.array[i] == null) {
+
+                    this.remove(i);
+                    done = false;
+                    break;
+                }
+            }
+        }
+    }
+
+
+    public boolean isTrimmed() {
+
+        for (int i = 0; i < this.size(); i++) {
+
+            if(this.array[i] == null) {
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    public boolean contains(T item) {
+
+        for (int i = 0; i < this.size(); i++) {
+
+            if(this.get(i).equals(item)) {
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
